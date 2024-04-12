@@ -12,6 +12,9 @@ html_begin = '''
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HTML Document with Math Formulas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -24156,75 +24159,19 @@ window.MathJax = {
 }
 
 @font-face {
-    font-family: __Roboto_Mono_bbf4d0;
-    font-style: normal;
-    font-weight: 100 700;
-    font-display: swap;
-    src: url(/app/static/88ba9021cc1d0e98-s.woff2) format("woff2");
-    unicode-range: U+0460-052f, U+1c80-1c88, U+20b4, U+2de0-2dff, U+a640-a69f, U+fe2e-fe2f
-}
-
-@font-face {
-    font-family: __Roboto_Mono_bbf4d0;
-    font-style: normal;
-    font-weight: 100 700;
-    font-display: swap;
-    src: url(/app/static/104274daeea7a91a-s.woff2) format("woff2");
-    unicode-range: U+0301, U+0400-045f, U+0490-0491, U+04b0-04b1, U+2116
-}
-
-@font-face {
-    font-family: __Roboto_Mono_bbf4d0;
-    font-style: normal;
-    font-weight: 100 700;
-    font-display: swap;
-    src: url(/app/static/7e380d3170051f13-s.woff2) format("woff2");
-    unicode-range: U+0370-03ff
-}
-
-@font-face {
-    font-family: __Roboto_Mono_bbf4d0;
-    font-style: normal;
-    font-weight: 100 700;
-    font-display: swap;
-    src: url(/app/static/e653d759d3cc808f-s.woff2) format("woff2");
-    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01a0-01a1, U+01af-01b0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1ea0-1ef9, U+20ab
-}
-
-@font-face {
-    font-family: __Roboto_Mono_bbf4d0;
-    font-style: normal;
-    font-weight: 100 700;
-    font-display: swap;
-    src: url(/app/static/a913ea2790b1a249-s.woff2) format("woff2");
-    unicode-range: U+0100-02af, U+0304, U+0308, U+0329, U+1e00-1e9f, U+1ef2-1eff, U+2020, U+20a0-20ab, U+20ad-20cf, U+2113, U+2c60-2c7f, U+a720-a7ff
-}
-
-@font-face {
-    font-family: __Roboto_Mono_bbf4d0;
-    font-style: normal;
-    font-weight: 100 700;
-    font-display: swap;
-    src: url(/app/static/8e992d4bd80b0720-s.p.woff2) format("woff2");
-    unicode-range: U+00??, U+0131, U+0152-0153, U+02bb-02bc, U+02c6, U+02da, U+02dc, U+0304, U+0308, U+0329, U+2000-206f, U+2074, U+20ac, U+2122, U+2191, U+2193, U+2212, U+2215, U+feff, U+fffd
-}
-
-@font-face {
-    font-family: __Roboto_Mono_Fallback_bbf4d0;
-    src: local("Arial");
-    ascent-override: 77.08%;
-    descent-override: 19.93%;
-    line-gap-override: 0.00%;
-    size-adjust: 135.95%
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
 }
 
 .__className_bbf4d0 {
-    font-family: __Roboto_Mono_bbf4d0, __Roboto_Mono_Fallback_bbf4d0;
+    font-family: "Roboto Mono", monospace;
     font-style: normal
 }
 
 .__variable_bbf4d0 {
-    --font-roboto-mono: "__Roboto_Mono_bbf4d0", "__Roboto_Mono_Fallback_bbf4d0"
+    --font-roboto-mono: "Roboto Mono", monospace;
 }
 
 /*
