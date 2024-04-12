@@ -301,7 +301,7 @@ window.MathJax = {
   --heading-line-height-7: calc(36px * var(--scaling));
   --heading-line-height-8: calc(40px * var(--scaling));
   --heading-line-height-9: calc(60px * var(--scaling));
-  --code-font-family: "Menlo", "Consolas (Custom)", "Bitstream Vera Sans Mono", monospace, "Apple Color Emoji", "Segoe UI Emoji";
+  --code-font-family: "Liberation Mono", "Nimbus Mono L", "FreeMono", "DejaVu Mono", "Bitstream Vera Mono", "Lucida Console", "Andale Mono", "Courier New", "Menlo", "Consolas (Custom)", "Bitstream Vera Sans Mono", monospace, "Apple Color Emoji", "Segoe UI Emoji";
   --code-font-size-adjust: 0.95;
   --code-font-style: normal;
   --code-font-weight: inherit;
