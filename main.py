@@ -25719,6 +25719,11 @@ html_end = '''
                 })
                 .catch(function(error) {
                     console.error('Error downloading page:', error);
+                    // Download error
+                    downloadMessage.innerHTML = `第 ${completedCount + 1} / ${pages.length} 张图片下载失败`;
+                    setTimeout(() => {
+                        downloadMessage.innerHTML = ''; // Clear message after 3 seconds
+                    }, 3000);
                 });
         }
 
