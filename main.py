@@ -25641,23 +25641,22 @@ video {
                         <div class="flex gap-4 pb-5">
 '''
 
-page_begin = '''
-                            <div class="md-page">
-                                <div class="to-image-section">
-                                    <div class="box-border p-4"
-                                        style="background-image: linear-gradient(to right bottom, {}, {}); width: {}px; height: {}px;">
-                                        <div class="p-4 rounded bg-white/80 shadow h-full box-border">
-                                            <div class="prose w-full max-w-none undefined"
-                                                style="--tw-prose-headings: {}; --tw-prose-body: {}; --tw-prose-quotes: #6b7280; --tw-prose-bold: {}; --tw-prose-code: {}; --tw-prose-bullets: {}; --tw-prose-quote-borders: {}; --tw-prose-hr: {};">
+page_template = '''
+<div class="md-page">
+    <div class="to-image-section">
+        <div class="box-border p-4"
+             style="background-image: linear-gradient(to right bottom, {gradient_color1}, {gradient_color2}); width: {width}px; height: {height}px;">
+            <div class="p-4 rounded bg-white/80 shadow h-full box-border">
+                <div class="prose w-full max-w-none undefined"
+                     style="--tw-prose-headings: {headings_color}; --tw-prose-body: {body_color}; --tw-prose-quotes: {quotes_color}; --tw-prose-bold: {bold_color}; --tw-prose-code: {code_color}; --tw-prose-bullets: {bullets_color}; --tw-prose-quote-borders: {quote_borders_color}; --tw-prose-hr: {hr_color};">
+                     {content}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 '''
 
-page_end = '''
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-'''
 
 html_end = '''
                         </div>
@@ -25741,7 +25740,7 @@ html_end = '''
 
 editor_prompt = r'''# 科学研究的魔法世界
 
-科学研究就像探索一片神秘的魔法世界，充满了无限的可能性和奇迹。让我们一起揭开一些科学魔法的面纱，看看这个世界的神奇之处。
+> 科学研究就像探索一片神秘的魔法世界，充满了无限的可能性和奇迹。让我们一起揭开一些科学魔法的面纱，看看这个世界的神奇之处
 
 ## 魔法公式
 
@@ -25751,7 +25750,10 @@ editor_prompt = r'''# 科学研究的魔法世界
 
 - **霍格沃茨魔法强度**：$F = \frac{G \cdot m_1 \cdot m_2}{r^2}$，这里的 \( F \) 是引力，\( G \) 是引力常数，\( m_1 \) 和 \( m_2 \) 是物体的质量，\( r \) 是它们之间的距离。
 
-- **魔法传送门公式**：\( V = \frac{d}{t} \)，这里的 \( V \) 是速度，\( d \) 是距离，\( t \) 是时间。
+
+```python
+def Fib(x): return 1 if x in {0, 1} else Fib(x-1) + Fib(x-2)  
+```
 
 接下来是一些魔法物品的展示，我们可以使用Markdown中的表格来呈现：
 
@@ -25778,19 +25780,216 @@ st.sidebar.title('设置')
 width = st.sidebar.number_input('图片宽度', min_value=100, value=600, step=1)
 height = st.sidebar.number_input('图片高度', min_value=100, value=800, step=1)
 
-bg_gradient = st.sidebar.checkbox('使用渐变背景', True)
-if bg_gradient:
-    c1, c2 = st.sidebar.columns(2)
-    bg_color = c1.color_picker('左上颜色', '#ffecd2', key='bg_color')
-    bg_color2 = c2.color_picker('右下颜色', '#fcb69f', key='bg_color2')
-else:
-    bg_color = st.sidebar.color_picker('背景颜色', '#fcb69f', key='bg_color')
-    bg_color2 = bg_color
+color_palettes = {
+    "橘子日光": {
+        "gradient_color1": "#FF9F68",
+        "gradient_color2": "#FFD56A",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#E67E22",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "秋日暖阳": {
+        "gradient_color1": "#FFD54F",
+        "gradient_color2": "#FFA726",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#FF9800",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "日落余晖": {
+        "gradient_color1": "#FF6B6B",
+        "gradient_color2": "#FFE66D",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#E74C3C",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "秋枫红叶": {
+        "gradient_color1": "#D32F2F",
+        "gradient_color2": "#F44336",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#B71C1C",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "晨曦粉红": {
+        "gradient_color1": "#FF80AB",
+        "gradient_color2": "#FF4081",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#D81B60",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "海滩风情": {
+        "gradient_color1": "#00BFA5",
+        "gradient_color2": "#1DE9B6",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#D4AF37",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "春意盎然": {
+        "gradient_color1": "#8BC34A",
+        "gradient_color2": "#C5E1A5",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#33691E",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "精灵森林": {
+        "gradient_color1": "#43A047",
+        "gradient_color2": "#66BB6A",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#2E7D32",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "蓝色宁静": {
+        "gradient_color1": "#03A9F4",
+        "gradient_color2": "#4FC3F7",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#E84C3D",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "湖光山色": {
+        "gradient_color1": "#8ED1FC",
+        "gradient_color2": "#71A9F7",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#3498DB",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "冰雪奇缘": {
+        "gradient_color1": "#E0F7FA",
+        "gradient_color2": "#80DEEA",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#00BCD4",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "璀璨之星": {
+        "gradient_color1": "#F7F0AC",
+        "gradient_color2": "#ACD8AA",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#FFD700",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "沃土田园": {
+        "gradient_color1": "#D9BF77",
+        "gradient_color2": "#A17917",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#8D6E63",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "雨后清新": {
+        "gradient_color1": "#84A9AC",
+        "gradient_color2": "#B7D1D1",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#286A6C",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "薄雾晨曦": {
+        "gradient_color1": "#D5DBDB",
+        "gradient_color2": "#F5F5F5",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#95A5A6",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "夜幕初降": {
+        "gradient_color1": "#928DAB",
+        "gradient_color2": "#1F1C2C",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#E84C3D",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+    "夜色深沉": {
+        "gradient_color1": "#212F45",
+        "gradient_color2": "#1A2836",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#E84C3D",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
+}
 
-accent_color = st.sidebar.color_picker('主色调', '#f97316', key='accent_color')
-text_color = st.sidebar.color_picker('文本颜色', '#111827', key='text_color')
 
-page_begin = page_begin.format(bg_color, bg_color2, width, height, accent_color, text_color, accent_color, accent_color, accent_color, accent_color, accent_color)
+palette = st.sidebar.radio('选择配色方案', list(color_palettes.keys()), index=0)
+color_palette = color_palettes[palette]
 
 st.subheader('Markdown文章编辑和图片生成器')
 
@@ -25798,7 +25997,7 @@ with st.expander('**编辑使用说明：** "---" 分页，按 ”Ctrl-Enter“ 
     md_str = st.text_area('Markdown', value=editor_prompt, height=400, label_visibility='collapsed')
 
 md_pages = md_str.split('\n---')
-page_str = [
+contents = [
     md.markdown(
         page_str,
         extensions=['extra', 'abbr', 'attr_list', 'def_list', 'fenced_code', 'footnotes', 'tables',
@@ -25808,7 +26007,13 @@ page_str = [
                     'pymdownx.smartsymbols', 'pymdownx.superfences', 'pymdownx.tasklist', 'pymdownx.tilde'])
     for page_str in md_pages
 ]
-html_str = ['\n'.join([page_begin, x, page_end]) for x in page_str]
+html_str = [
+    page_template.format(
+        width=width,
+        height=height,
+        content=content,
+        **color_palette
+    ) for content in contents]
 html_str = '\n'.join([html_begin, *html_str, html_end])
 
 html(html_str, height=height+50)
@@ -25816,8 +26021,8 @@ html(html_str, height=height+50)
 st.markdown('---')
 st.markdown('Inspired by https://breditor.vercel.app')
 
-#this code below is the statcounter tracking code
-takip= """
+# this code below is the statcounter tracking code
+takip = """
 <!-- Default Statcounter code for MD2IMG https://markdown2image.streamlit.app
 -->
 <script type="text/javascript">
@@ -25833,4 +26038,4 @@ src="https://c.statcounter.com/12987804/0/a32da59f/1/" alt="Web Analytics"
 referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 """
-html(takip,width=1, height=1)
+html(takip, width=1, height=1)
