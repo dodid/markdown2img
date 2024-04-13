@@ -25672,11 +25672,11 @@ html_end = '''
         const pages = document.querySelectorAll('.md-page');
         const downloadMessage = document.getElementById('downloadMessage');
         downloadMessage.innerHTML = '正在下载...';
-        
-        let downloadCount = 0;
+
         let completedCount = 0;
 
         const prefix = generateRandomPrefix();
+
         function downloadPage(page, index) {
             return new Promise((resolve, reject) => {
                 domtoimage.toBlob(page)
@@ -25702,31 +25702,6 @@ html_end = '''
             });
         }
 
-        // Sequentially download each page
-        function downloadAllPages() {
-            downloadPage(pages[downloadCount], downloadCount)
-                .then(function() {
-                    downloadCount++;
-                    if (downloadCount < pages.length) {
-                        downloadAllPages(); // Recursively download next page
-                    } else {
-                        // All downloads completed
-                        downloadMessage.innerHTML = `共下载 ${completedCount} 张图片`;
-                        setTimeout(() => {
-                            downloadMessage.innerHTML = ''; // Clear message after 3 seconds
-                        }, 3000);
-                    }
-                })
-                .catch(function(error) {
-                    console.error('Error downloading page:', error);
-                    // Download error
-                    downloadMessage.innerHTML = `第 ${completedCount + 1} / ${pages.length} 张图片下载失败`;
-                    setTimeout(() => {
-                        downloadMessage.innerHTML = ''; // Clear message after 3 seconds
-                    }, 3000);
-                });
-        }
-
         // Function to generate a random 4-character alphanumeric prefix
         function generateRandomPrefix() {
             const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -25737,7 +25712,30 @@ html_end = '''
             return result;
         }
 
-        // Start downloading pages
+        // Start downloading all pages in parallel
+        function downloadAllPages() {
+            const downloadPromises = [];
+            pages.forEach((page, index) => {
+                downloadPromises.push(downloadPage(page, index));
+            });
+
+            Promise.all(downloadPromises)
+                .then(() => {
+                    downloadMessage.innerHTML = `共下载 ${completedCount} 张图片`;
+                    setTimeout(() => {
+                        downloadMessage.innerHTML = ''; // Clear message after 3 seconds
+                    }, 3000);
+                })
+                .catch((error) => {
+                    console.error('Error downloading pages:', error);
+                    downloadMessage.innerHTML = `部分图片下载失败`;
+                    setTimeout(() => {
+                        downloadMessage.innerHTML = ''; // Clear message after 3 seconds
+                    }, 3000);
+                });
+        }
+
+        // Start downloading pages in parallel
         downloadAllPages();
     });
 </script>
