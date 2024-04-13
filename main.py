@@ -25728,7 +25728,39 @@ html_end = '''
 </html>
 '''
 
-editor_prompt = '''# 在这里输入文本，开始吧！'''
+editor_prompt = r'''# 科学研究的魔法世界
+
+科学研究就像探索一片神秘的魔法世界，充满了无限的可能性和奇迹。让我们一起揭开一些科学魔法的面纱，看看这个世界的神奇之处。
+
+## 魔法公式
+
+让我们首先看一下一些重要的魔法公式：
+
+- **变形金刚变身公式**：$E = mc^2$，这里的 $E$ 是能量，\( m \) 是物体的质量，\( c \) 是光速。
+
+- **霍格沃茨魔法强度**：$F = \frac{G \cdot m_1 \cdot m_2}{r^2}$，这里的 \( F \) 是引力，\( G \) 是引力常数，\( m_1 \) 和 \( m_2 \) 是物体的质量，\( r \) 是它们之间的距离。
+
+- **魔法传送门公式**：\( V = \frac{d}{t} \)，这里的 \( V \) 是速度，\( d \) 是距离，\( t \) 是时间。
+
+接下来是一些魔法物品的展示，我们可以使用Markdown中的表格来呈现：
+
+| 魔法物品     | 功能           | 用途  |
+| ------------- |:-------------:| -----:|
+| 魔法魔杖     | 发射魔法咒语 | 增强能力 |
+| 魔法药水     | 恢复生命值  | 应对危险 |
+| 魔法飞毯     | 飞行功能     | 便捷出行 |
+
+---
+## 魔法图像
+
+最后，让我们欣赏一些魔法世界的图像，这些图像可以带领我们进入奇妙的魔法境界：
+
+![巫师城堡](https://via.placeholder.com/400x300)
+
+通过Markdown格式，我们可以清晰、简洁地展示科学魔法的奥秘和魅力，让每个人都能沉浸在这个神奇的世界中。
+
+希望本文能够带给你一丝科学魔法的乐趣和惊喜！
+'''
 
 st.sidebar.title('设置')
 
@@ -25757,7 +25789,7 @@ if st.sidebar.button('生成随机内容'):
         st.code(random_str, language='markdown')
 
 with st.expander('**编辑使用说明：** "---" 分页，按 ”Ctrl-Enter“ 或 ”Command-Enter“ 预览效果', expanded=True):
-    md_str = st.text_area('Markdown', placeholder=editor_prompt, height=400, label_visibility='collapsed')
+    md_str = st.text_area('Markdown', value=editor_prompt, height=400, label_visibility='collapsed')
 
 md_pages = md_str.split('\n---')
 page_str = [
