@@ -27,7 +27,8 @@ html_begin = '''
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/bower_components/fontawesome/css/font-awesome.min.css">
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>
 window.MathJax = {
@@ -25718,6 +25719,11 @@ html_end = '''
                 })
                 .catch(function(error) {
                     console.error('Error downloading page:', error);
+                    // Download error
+                    downloadMessage.innerHTML = `第 ${completedCount + 1} / ${pages.length} 张图片下载失败`;
+                    setTimeout(() => {
+                        downloadMessage.innerHTML = ''; // Clear message after 3 seconds
+                    }, 3000);
                 });
         }
 
@@ -25768,7 +25774,7 @@ def Fib(x): return 1 if x in {0, 1} else Fib(x-1) + Fib(x-2)
 
 最后，让我们欣赏一些魔法世界的图像，这些图像可以带领我们进入奇妙的魔法境界：
 
-![巫师城堡](https://via.placeholder.com/400x300)
+![巫师城堡](https://picsum.photos/400/300)
 
 通过Markdown格式，我们可以清晰、简洁地展示科学魔法的奥秘和魅力，让每个人都能沉浸在这个神奇的世界中。
 
