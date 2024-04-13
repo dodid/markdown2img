@@ -25769,7 +25769,7 @@ def Fib(x): return 1 if x in {0, 1} else Fib(x-1) + Fib(x-2)
 
 最后，让我们欣赏一些魔法世界的图像，这些图像可以带领我们进入奇妙的魔法境界：
 
-![巫师城堡](https://via.placeholder.com/400x300)
+![巫师城堡](https://picsum.photos/400/300)
 
 通过Markdown格式，我们可以清晰、简洁地展示科学魔法的奥秘和魅力，让每个人都能沉浸在这个神奇的世界中。
 
