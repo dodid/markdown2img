@@ -30,6 +30,10 @@ html_begin = '''
 <script src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/bower_components/fontawesome/css/font-awesome.min.css">
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- Include JSZip library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+<!-- Include FileSaver.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 <script>
 window.MathJax = {
   options: {
@@ -25673,35 +25677,6 @@ html_end = '''
         const downloadMessage = document.getElementById('downloadMessage');
         downloadMessage.innerHTML = '正在下载...';
 
-        let completedCount = 0;
-
-        const prefix = generateRandomPrefix();
-
-        function downloadPage(page, index) {
-            return new Promise((resolve, reject) => {
-                domtoimage.toBlob(page)
-                    .then(function(blob) {
-                        const filename = `${prefix}_${index + 1}.png`;
-                        const link = document.createElement('a');
-                        link.download = filename;
-                        link.href = URL.createObjectURL(blob);
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-
-                        completedCount++;
-                        const progress = `正在下载 ${completedCount} / ${pages.length} 图片...`;
-                        downloadMessage.innerHTML = progress;
-
-                        resolve(); // Resolve the promise once download completes
-                    })
-                    .catch(function(error) {
-                        console.error('Error rendering page to image:', error);
-                        reject(error); // Reject the promise if an error occurs
-                    });
-            });
-        }
-
         // Function to generate a random 4-character alphanumeric prefix
         function generateRandomPrefix() {
             const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -25712,33 +25687,95 @@ html_end = '''
             return result;
         }
 
-        // Start downloading all pages in parallel
-        function downloadAllPages() {
-            const downloadPromises = [];
+        function downloadSingleImage(page) {
+            return new Promise((resolve, reject) => {
+                domtoimage.toBlob(page)
+                    .then(function(blob) {
+                        const filename = `image_${generateRandomPrefix()}.png`;
+                        saveAs(blob, filename);
+                        resolve(); // Resolve the promise once image is downloaded
+                    })
+                    .catch(function(error) {
+                        console.error('Error rendering page to image:', error);
+                        resolve(); // Resolve even if error occurs to continue with other images
+                    });
+            });
+        }
+
+        function downloadMultipleImages(pages) {
+            const prefix = generateRandomPrefix();
+            const zip = new JSZip();
+            const promises = [];
+
             pages.forEach((page, index) => {
-                downloadPromises.push(downloadPage(page, index));
+                promises.push(
+                    domtoimage.toBlob(page)
+                        .then(function(blob) {
+                            const filename = `${prefix}-${index + 1}.png`;
+                            zip.file(filename, blob);
+                        })
+                        .catch(function(error) {
+                            console.error(`Error rendering page ${index + 1} to image:`, error);
+                        })
+                );
             });
 
-            Promise.all(downloadPromises)
+            Promise.all(promises)
                 .then(() => {
-                    downloadMessage.innerHTML = `共下载 ${completedCount} 张图片`;
-                    setTimeout(() => {
-                        downloadMessage.innerHTML = ''; // Clear message after 3 seconds
-                    }, 3000);
+                    zip.generateAsync({ type: 'blob' })
+                        .then(function(content) {
+                            const zipFilename = `md2img-${prefix}.zip`;
+                            saveAs(content, zipFilename);
+                            downloadMessage.innerHTML = '下载完成';
+                            setTimeout(() => {
+                                downloadMessage.innerHTML = ''; // Clear message after 3 seconds
+                            }, 3000);
+                        })
+                        .catch(function(error) {
+                            console.error('Error generating zip:', error);
+                            downloadMessage.innerHTML = '下载失败';
+                            setTimeout(() => {
+                                downloadMessage.innerHTML = ''; // Clear message after 3 seconds
+                            }, 3000);
+                        });
                 })
                 .catch((error) => {
-                    console.error('Error downloading pages:', error);
-                    downloadMessage.innerHTML = `部分图片下载失败`;
+                    console.error('Error downloading images:', error);
+                    downloadMessage.innerHTML = '下载失败';
                     setTimeout(() => {
                         downloadMessage.innerHTML = ''; // Clear message after 3 seconds
                     }, 3000);
                 });
         }
 
-        // Start downloading pages in parallel
-        downloadAllPages();
+        // Determine whether to download single or multiple images
+        if (pages.length === 1) {
+            downloadSingleImage(pages[0])
+                .then(() => {
+                    downloadMessage.innerHTML = '下载完成';
+                    setTimeout(() => {
+                        downloadMessage.innerHTML = ''; // Clear message after 3 seconds
+                    }, 3000);
+                })
+                .catch((error) => {
+                    console.error('Error downloading image:', error);
+                    downloadMessage.innerHTML = '下载失败';
+                    setTimeout(() => {
+                        downloadMessage.innerHTML = ''; // Clear message after 3 seconds
+                    }, 3000);
+                });
+        } else if (pages.length > 1) {
+            downloadMultipleImages(pages);
+        } else {
+            // No images to download
+            downloadMessage.innerHTML = '没有找到要下载的图片';
+            setTimeout(() => {
+                downloadMessage.innerHTML = ''; // Clear message after 3 seconds
+            }, 3000);
+        }
     });
 </script>
+
 </html>
 '''
 
