@@ -4,7 +4,7 @@ import markdown as md
 import streamlit as st
 from streamlit.components.v1 import html
 
-st.set_page_config(page_title='Markdown文章编辑和图片生成器,小红书,微信公众号,抖音,快手,微博', layout='wide')
+st.set_page_config(page_title='Markdown文章编辑和图片生成器,小红书,微信公众号,抖音,快手,微博', layout='wide', page_icon='🌅')
 
 urls = [
     'https://markdown2image.streamlit.app',
