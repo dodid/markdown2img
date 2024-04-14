@@ -24783,7 +24783,7 @@ video {
 .prose :where(pre):not(:where([class~=not-prose] *)) {
     color: var(--tw-prose-pre-code);
     background-color: var(--tw-prose-pre-bg);
-    overflow-x: auto;
+    overflow-x: hidden;
     font-weight: 400;
     font-size: .875em;
     line-height: 1.7142857;
@@ -24873,7 +24873,7 @@ video {
     --tw-prose-captions: #6b7280;
     --tw-prose-code: #111827;
     --tw-prose-pre-code: #e5e7eb;
-    --tw-prose-pre-bg: #1f2937;
+    --tw-prose-pre-bg: #4b5563;
     --tw-prose-th-borders: #d1d5db;
     --tw-prose-td-borders: #e5e7eb;
     --tw-prose-invert-body: #d1d5db;
@@ -25663,8 +25663,8 @@ page_template = '''
     <div class="to-image-section">
         <div class="box-border p-{padding}"
              style="background-image: linear-gradient(to right bottom, {gradient_color1}, {gradient_color2}); width: {width}px; height: {height}px;">
-            <div class="p-4 {rounded} bg-white/80 shadow h-full box-border">
-                <div class="prose w-full max-w-none undefined"
+            <div class="p-4 {rounded} {overlay} h-full box-border">
+                <div class="prose w-full max-w-none"
                      style="--tw-prose-headings: {headings_color}; --tw-prose-body: {body_color}; --tw-prose-quotes: {quotes_color}; --tw-prose-bold: {bold_color}; --tw-prose-code: {code_color}; --tw-prose-bullets: {bullets_color}; --tw-prose-quote-borders: {quote_borders_color}; --tw-prose-hr: {hr_color};">
                      {content}
                 </div>
@@ -25864,7 +25864,8 @@ color_palettes = {
         "code_color": "#E67E22",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "秋日暖阳": {
         "gradient_color1": "#FFD54F",
@@ -25876,31 +25877,8 @@ color_palettes = {
         "code_color": "#FF9800",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
-    },
-    "日落余晖": {
-        "gradient_color1": "#FF6B6B",
-        "gradient_color2": "#FFE66D",
-        "headings_color": "#1A1A1A",
-        "body_color": "#333333",
-        "quotes_color": "#4C4C4C",
-        "bold_color": "#000000",
-        "code_color": "#E74C3C",
-        "bullets_color": "#666666",
-        "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
-    },
-    "秋枫红叶": {
-        "gradient_color1": "#D32F2F",
-        "gradient_color2": "#F44336",
-        "headings_color": "#1A1A1A",
-        "body_color": "#333333",
-        "quotes_color": "#4C4C4C",
-        "bold_color": "#000000",
-        "code_color": "#B71C1C",
-        "bullets_color": "#666666",
-        "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "晨曦粉红": {
         "gradient_color1": "#FF80AB",
@@ -25912,7 +25890,21 @@ color_palettes = {
         "code_color": "#D81B60",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
+    },
+    "秋枫红叶": {
+        "gradient_color1": "#D32F2F",
+        "gradient_color2": "#F44336",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#B71C1C",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "海滩风情": {
         "gradient_color1": "#00BFA5",
@@ -25924,7 +25916,8 @@ color_palettes = {
         "code_color": "#D4AF37",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "春意盎然": {
         "gradient_color1": "#8BC34A",
@@ -25936,7 +25929,8 @@ color_palettes = {
         "code_color": "#33691E",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "精灵森林": {
         "gradient_color1": "#43A047",
@@ -25948,7 +25942,8 @@ color_palettes = {
         "code_color": "#2E7D32",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "蓝色宁静": {
         "gradient_color1": "#03A9F4",
@@ -25960,7 +25955,8 @@ color_palettes = {
         "code_color": "#E84C3D",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "湖光山色": {
         "gradient_color1": "#8ED1FC",
@@ -25972,7 +25968,8 @@ color_palettes = {
         "code_color": "#3498DB",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "冰雪奇缘": {
         "gradient_color1": "#E0F7FA",
@@ -25984,7 +25981,8 @@ color_palettes = {
         "code_color": "#00BCD4",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "璀璨之星": {
         "gradient_color1": "#F7F0AC",
@@ -25996,7 +25994,8 @@ color_palettes = {
         "code_color": "#FFD700",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "沃土田园": {
         "gradient_color1": "#D9BF77",
@@ -26008,7 +26007,8 @@ color_palettes = {
         "code_color": "#8D6E63",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "雨后清新": {
         "gradient_color1": "#84A9AC",
@@ -26020,7 +26020,8 @@ color_palettes = {
         "code_color": "#286A6C",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "薄雾晨曦": {
         "gradient_color1": "#D5DBDB",
@@ -26032,7 +26033,8 @@ color_palettes = {
         "code_color": "#95A5A6",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "夜幕初降": {
         "gradient_color1": "#928DAB",
@@ -26044,7 +26046,8 @@ color_palettes = {
         "code_color": "#E84C3D",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "夜色深沉": {
         "gradient_color1": "#212F45",
@@ -26056,7 +26059,8 @@ color_palettes = {
         "code_color": "#E84C3D",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
     "纯白世界": {
         "gradient_color1": "#FFFFFF",
@@ -26068,8 +26072,22 @@ color_palettes = {
         "code_color": "#E67E22",
         "bullets_color": "#666666",
         "quote_borders_color": "#999999",
-        "hr_color": "#AAAAAA"
+        "hr_color": "#AAAAAA",
+        "overlay": "bg-white/80",
     },
+    "黑夜星空": {
+        "gradient_color1": "#2A2A2A",
+        "gradient_color2": "#2A2A2A",
+        "headings_color": "#FFFFFF",
+        "body_color": "#E5E5E5",
+        "quotes_color": "#CCCCCC",
+        "bold_color": "#FFFFFF",
+        "code_color": "#189DDB",
+        "bullets_color": "#AAAAAA",
+        "quote_borders_color": "#888888",
+        "hr_color": "#777777",
+        "overlay": "",
+    }
 }
 
 
