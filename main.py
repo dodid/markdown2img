@@ -24872,7 +24872,7 @@ video {
     --tw-prose-quote-borders: #e5e7eb;
     --tw-prose-captions: #6b7280;
     --tw-prose-code: #111827;
-    --tw-prose-pre-code: #e5e7eb;
+    --tw-prose-pre-code: #ffffff;
     --tw-prose-pre-bg: #4b5563;
     --tw-prose-th-borders: #d1d5db;
     --tw-prose-td-borders: #e5e7eb;
