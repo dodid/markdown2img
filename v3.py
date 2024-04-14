@@ -25628,7 +25628,7 @@ video {
 </style>
 </head>
 <body class="__className_20951f" >
-<div data-is-root-theme="true" data-accent-color="violet" data-gray-color="mauve" data-has-background="false" data-panel-background="translucent" data-radius="medium" data-scaling="100%" class="radix-themes">
+<div data-is-root-theme="true" data-accent-color="tomato" data-gray-color="mauve" data-has-background="false" data-panel-background="translucent" data-radius="medium" data-scaling="100%" class="radix-themes">
 <div class="flex gap-x-4 rt-r-ai-center">
     <button id="renderAndDownloadBtn" class="rt-reset-button rt-reset-a rt-BaseButton rt-Button rt-r-size-2 rt-variant-surface">
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
