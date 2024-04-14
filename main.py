@@ -25400,6 +25400,18 @@ video {
     --tw-gradient-to: var(--gray-8) var(--tw-gradient-to-position)
 }
 
+.p-0 {
+    padding: 0
+}
+
+.p-1 {
+    padding: .25rem
+}
+
+.p-2 {
+    padding: .5rem
+}
+
 .p-4 {
     padding: 1rem
 }
@@ -25628,7 +25640,7 @@ video {
 <div class="mt-4 rt-reset-a rt-reset-button w-full overflow-x-auto undefined rt-r-size-1 rt-variant-surface">
     <div class="rt-CardInner">
         <div class="flex flex-col items-stretch gap-y-4 -mb-3">
-            <div dir="ltr" class="rt-ScrollAreaRoot"
+            <div dir="ltr" class="rt-ScrollAreaRoot" style="overflow: scroll hidden;" 
                 style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;">
                 <style>
                     [data-radix-scroll-area-viewport] {
@@ -25641,7 +25653,7 @@ video {
                         display: none
                     }
                 </style>
-                <div data-radix-scroll-area-viewport="" class="rt-ScrollAreaViewport" style="overflow: scroll hidden;">
+                <div data-radix-scroll-area-viewport="" class="rt-ScrollAreaViewport"  style="transform: scale(replace_with_value); transform-origin: top left;">
                     <div style="min-width: 100%; display: table">
                         <div class="flex gap-4 pb-5">
 '''
@@ -25649,9 +25661,9 @@ video {
 page_template = '''
 <div class="md-page">
     <div class="to-image-section">
-        <div class="box-border p-4"
+        <div class="box-border p-{padding}"
              style="background-image: linear-gradient(to right bottom, {gradient_color1}, {gradient_color2}); width: {width}px; height: {height}px;">
-            <div class="p-4 rounded bg-white/80 shadow h-full box-border">
+            <div class="p-4 {rounded} bg-white/80 shadow h-full box-border">
                 <div class="prose w-full max-w-none undefined"
                      style="--tw-prose-headings: {headings_color}; --tw-prose-body: {body_color}; --tw-prose-quotes: {quotes_color}; --tw-prose-bold: {bold_color}; --tw-prose-code: {code_color}; --tw-prose-bullets: {bullets_color}; --tw-prose-quote-borders: {quote_borders_color}; --tw-prose-hr: {hr_color};">
                      {content}
@@ -25661,7 +25673,6 @@ page_template = '''
     </div>
 </div>
 '''
-
 
 html_end = '''
                         </div>
@@ -25687,11 +25698,37 @@ html_end = '''
             return result;
         }
 
+        function downloadImage(node, scale = 2) {
+            const width = node.offsetWidth;
+            const height = node.offsetHeight;
+            const scaledWidth = width * scale;
+            const scaledHeight = height * scale;
+
+            return new Promise((resolve, reject) => {
+                domtoimage.toBlob(node, {
+                    height: scaledHeight,
+                    width: scaledWidth,
+                    style: {
+                        transform: `scale(${scale})`,
+                        transformOrigin: 'top left',
+                        width: `${width}px`,
+                        height: `${height}px`
+                    }
+                })
+                .then(blob => {
+                    resolve(blob);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+            });
+        }
+
         function downloadSingleImage(page) {
             return new Promise((resolve, reject) => {
-                domtoimage.toBlob(page)
-                    .then(function(blob) {
-                        const filename = `image_${generateRandomPrefix()}.png`;
+                downloadImage(page)
+                    .then(blob => {
+                        const filename = `md2img-${generateRandomPrefix()}@2x.png`;
                         saveAs(blob, filename);
                         resolve(); // Resolve the promise once image is downloaded
                     })
@@ -25709,9 +25746,9 @@ html_end = '''
 
             pages.forEach((page, index) => {
                 promises.push(
-                    domtoimage.toBlob(page)
-                        .then(function(blob) {
-                            const filename = `${prefix}-${index + 1}.png`;
+                    downloadImage(page)
+                        .then(blob => {
+                            const filename = `${prefix}-${index + 1}@2x.png`;
                             zip.file(filename, blob);
                         })
                         .catch(function(error) {
@@ -25815,11 +25852,6 @@ def Fib(x): return 1 if x in {0, 1} else Fib(x-1) + Fib(x-2)
 
 希望本文能够带给你一丝科学魔法的乐趣和惊喜！
 '''
-
-st.sidebar.title('设置')
-
-width = st.sidebar.number_input('图片宽度', min_value=100, value=600, step=1)
-height = st.sidebar.number_input('图片高度', min_value=100, value=800, step=1)
 
 color_palettes = {
     "橘子日光": {
@@ -26026,10 +26058,29 @@ color_palettes = {
         "quote_borders_color": "#999999",
         "hr_color": "#AAAAAA"
     },
+    "纯白世界": {
+        "gradient_color1": "#FFFFFF",
+        "gradient_color2": "#FFFFFF",
+        "headings_color": "#1A1A1A",
+        "body_color": "#333333",
+        "quotes_color": "#4C4C4C",
+        "bold_color": "#000000",
+        "code_color": "#E67E22",
+        "bullets_color": "#666666",
+        "quote_borders_color": "#999999",
+        "hr_color": "#AAAAAA"
+    },
 }
 
 
-palette = st.sidebar.radio('选择配色方案', list(color_palettes.keys()), index=0)
+st.sidebar.title('设置')
+
+scale = st.sidebar.slider('预览缩放', min_value=10, max_value=100, value=100, step=10, format='%f%%') / 100.
+width = st.sidebar.number_input('图片宽度', min_value=100, value=600, step=1)
+height = st.sidebar.number_input('图片高度', min_value=100, value=800, step=1)
+border = st.sidebar.select_slider('边框宽度', options=[0, 1, 2, 4], value=2)
+palette = st.sidebar.radio('配色方案', list(color_palettes.keys()), index=0, horizontal=True)
+
 color_palette = color_palettes[palette]
 
 st.subheader('Markdown文章编辑和图片生成器')
@@ -26048,11 +26099,14 @@ contents = [
                     'pymdownx.smartsymbols', 'pymdownx.superfences', 'pymdownx.tasklist', 'pymdownx.tilde'])
     for page_str in md_pages
 ]
+html_begin = html_begin.replace('replace_with_value', str(scale))
 html_str = [
     page_template.format(
         width=width,
         height=height,
         content=content,
+        padding=border,
+        rounded='rounded' if border else '',
         **color_palette
     ) for content in contents]
 html_str = '\n'.join([html_begin, *html_str, html_end])
