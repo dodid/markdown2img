@@ -26092,20 +26092,23 @@ color_palettes = {
 
 
 with st.sidebar:
-  t1, t2 = st.tabs(['设置', '图片'])
-  with t1:
-    scale = st.slider('预览缩放', min_value=10, max_value=100, value=100, step=10, format='%f%%') / 100.
-    width = st.number_input('图片宽度', min_value=100, value=600, step=1)
-    height = st.number_input('图片高度', min_value=100, value=800, step=1)
-    border = st.select_slider('边框宽度', options=[0, 1, 2, 4], value=2)
-    palette = st.radio('配色方案', list(color_palettes.keys()), index=0, horizontal=True)
-  with t2:
-    with st.expander('**上传图片**', expanded=True):
-      attachment = st.file_uploader('上传图片', type=['png', 'jpg', 'jpeg', 'webp'], accept_multiple_files=True, label_visibility='collapsed')
-    if attachment:
-       for file in attachment:
-          with st.expander(f'**{file.name}**'):
-            st.image(file, use_column_width=True)
+    t1, t2 = st.tabs(['设置', '上传图片'])
+    with t1:
+        scale = st.slider('预览缩放', min_value=10, max_value=100, value=100, step=10, format='%f%%') / 100.
+        width = st.number_input('图片宽度', min_value=100, value=600, step=1)
+        height = st.number_input('图片高度', min_value=100, value=800, step=1)
+        border = st.select_slider('边框宽度', options=[0, 1, 2, 4], value=2)
+        palette = st.radio('配色方案', list(color_palettes.keys()), index=0, horizontal=True)
+    with t2:
+        with st.expander('**添加Markdown中用到的图片**', expanded=True):
+            attachment = st.file_uploader(
+                '上传图片', type=['png', 'jpg', 'jpeg', 'webp'],
+                accept_multiple_files=True, label_visibility='collapsed')
+        st.caption('**使用方法**：图片上点击右键复制图片地址，然后在Markdown中使用 `![图片描述](图片地址)` 插入图片。如果下载后图片不显示，尝试使用Chrome浏览器。')
+        if attachment:
+            for file in attachment:
+                with st.expander(f'**{file.name}**'):
+                    st.image(file, use_column_width=True)
 
 
 color_palette = color_palettes[palette]
