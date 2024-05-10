@@ -26095,7 +26095,7 @@ color_palettes = {
 with st.sidebar:
     t1, t2 = st.tabs(['设置', '上传图片'])
     with t1:
-        scale = st.slider('预览缩放', min_value=10, max_value=100, value=100, step=10, format='%f%%') / 100.
+        scale = st.slider('预览缩放', min_value=10, max_value=100, value=60, step=10, format='%f%%') / 100.
         width = st.number_input('图片宽度', min_value=100, value=600, step=1)
         height = st.number_input('图片高度', min_value=100, value=800, step=1)
         border = st.select_slider('边框宽度', options=[0, 1, 2, 4], value=2)
