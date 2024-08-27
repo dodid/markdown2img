@@ -27,7 +27,7 @@ html_begin = '''
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/bower_components/fontawesome/css/font-awesome.min.css">
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <!-- Include JSZip library -->
@@ -25705,7 +25705,7 @@ html_end = '''
             const scaledHeight = height * scale;
 
             return new Promise((resolve, reject) => {
-                domtoimage.toBlob(node, {
+                htmlToImage.toBlob(node, {
                     height: scaledHeight,
                     width: scaledWidth,
                     style: {
