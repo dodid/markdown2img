@@ -26114,7 +26114,7 @@ with st.sidebar:
 
 color_palette = color_palettes[palette]
 
-st.subheader('Markdown文章编辑和图片生成器')
+st.subheader('Markdown图片编辑器（使用Chrome浏览器以获得最佳效果）')
 
 with st.expander('**编辑使用说明：** "---" 分页，按 ”Ctrl-Enter“ 或 ”Command-Enter“ 预览效果', expanded=True):
     md_str = st.text_area('Markdown', value=editor_prompt, height=400, label_visibility='collapsed')
